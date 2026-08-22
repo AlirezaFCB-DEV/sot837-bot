@@ -1,0 +1,79 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#020304"/>
+      <stop offset="100%" stop-color="#060a08"/>
+    </linearGradient>
+    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <clipPath id="clip">
+      <rect width="512" height="512" rx="112"/>
+    </clipPath>
+  </defs>
+
+  <rect width="512" height="512" rx="112" fill="url(#bg)"/>
+
+  <g clip-path="url(#clip)">
+    <!-- scanlines -->
+    <g opacity="0.05" stroke="#39ff88" stroke-width="1">
+      <line x1="0" y1="36" x2="512" y2="36"/>
+      <line x1="0" y1="72" x2="512" y2="72"/>
+      <line x1="0" y1="108" x2="512" y2="108"/>
+      <line x1="0" y1="144" x2="512" y2="144"/>
+      <line x1="0" y1="180" x2="512" y2="180"/>
+      <line x1="0" y1="216" x2="512" y2="216"/>
+      <line x1="0" y1="252" x2="512" y2="252"/>
+      <line x1="0" y1="288" x2="512" y2="288"/>
+      <line x1="0" y1="324" x2="512" y2="324"/>
+      <line x1="0" y1="360" x2="512" y2="360"/>
+      <line x1="0" y1="396" x2="512" y2="396"/>
+      <line x1="0" y1="432" x2="512" y2="432"/>
+      <line x1="0" y1="468" x2="512" y2="468"/>
+    </g>
+
+    <!-- faint binary corners -->
+    <g fill="#39ff88" opacity="0.14" font-family="monospace" font-size="18">
+      <text x="30" y="60">10110</text>
+      <text x="330" y="470">01001</text>
+    </g>
+  </g>
+
+  <!-- terminal window -->
+  <rect x="66" y="128" width="380" height="256" rx="18" fill="#050807" stroke="#1c2b22" stroke-width="3"/>
+
+  <!-- title bar -->
+  <rect x="66" y="128" width="380" height="40" rx="18" fill="#0b120e"/>
+  <rect x="66" y="150" width="380" height="18" fill="#0b120e"/>
+  <circle cx="94" cy="148" r="7" fill="#ff5f57"/>
+  <circle cx="118" cy="148" r="7" fill="#febc2e"/>
+  <circle cx="142" cy="148" r="7" fill="#28c840"/>
+
+  <!-- glitch offset copies of the prompt text -->
+  <g font-family="monospace" font-weight="700" font-size="40">
+    <text x="97" y="248" fill="#ff2fd6" opacity="0.55">$ sot837</text>
+    <text x="103" y="252" fill="#00e5ff" opacity="0.55">$ sot837</text>
+    <text x="100" y="250" fill="#39ff88" filter="url(#glow)">$ sot837</text>
+  </g>
+
+  <g font-family="monospace" font-weight="700" font-size="40">
+    <text x="97" y="302" fill="#ff2fd6" opacity="0.5">&gt; run bot</text>
+    <text x="103" y="306" fill="#00e5ff" opacity="0.5">&gt; run bot</text>
+    <text x="100" y="304" fill="#39ff88" filter="url(#glow)">&gt; run bot</text>
+  </g>
+
+  <!-- blinking cursor block -->
+  <rect x="100" y="322" width="28" height="34" fill="#39ff88" filter="url(#glow)"/>
+
+  <!-- glitch tear lines across the window -->
+  <g opacity="0.5">
+    <rect x="66" y="214" width="150" height="4" fill="#00e5ff"/>
+    <rect x="270" y="214" width="176" height="4" fill="#ff2fd6"/>
+    <rect x="66" y="270" width="90" height="3" fill="#ff2fd6"/>
+    <rect x="200" y="270" width="246" height="3" fill="#00e5ff"/>
+  </g>
+</svg>

@@ -11,7 +11,7 @@ export default function Form(): ReactNode {
   };
 
   return (
-    <div className="w-full bg-white rounded-2xl border border-gray-300 p-5 grid grid-cols-1 gap-2">
+    <div className="w-full bg-white dark:bg-black/75 rounded-2xl border border-gray-300 dark:border-gray-700 p-5 grid grid-cols-1 gap-2">
       <h3 className="text-gray-500 text-sm">Login to your account</h3>
 
       <h1 className="text-xl font-bold text-cyan-600">
@@ -40,7 +40,7 @@ export default function Form(): ReactNode {
           <button
             type="button"
             onClick={handleClickButton}
-            className="text-gray-500 absolute top-11 right-3 bg-white p-1 text-sm"
+            className="text-gray-500 dark:text-gray-300 outline-0 absolute top-11 right-3 bg-white dark:bg-black/1 p-1 text-sm"
           >
             {showPassword ? "Hide" : "Show"}
           </button>
@@ -56,7 +56,7 @@ export default function Form(): ReactNode {
 
         <button
           type="submit"
-          className="p-3 w-full rounded-xl bg-cyan-500 text-white font-bold cursor-pointer transition-colors saturate-100 active:bg-cyan-600"
+          className="p-3 w-full rounded-xl bg-cyan-500 dark:bg-cyan-600 text-white font-bold cursor-pointer transition-colors saturate-100 active:bg-cyan-600"
         >
           SIGN IN
         </button>

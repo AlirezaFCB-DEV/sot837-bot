@@ -1,4 +1,3 @@
-import { NextResponse } from "next/server";
 import { v4 } from "uuid";
 
 export interface User {
@@ -7,14 +6,10 @@ export interface User {
   password: string;
 }
 
-const adminUsers: User[] = [
+export const AdminUsers: User[] = [
   {
     id: v4(),
     userName: "sobhanjafarii87@gmail.com",
     password: "Sobhan 1387",
   },
 ];
-
-export async function GET(): Promise<NextResponse> {
-  return NextResponse.json(adminUsers);
-}

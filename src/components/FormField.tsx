@@ -36,6 +36,7 @@ export default function FormField({
         placeholder={placeholder}
         id={id}
         name={name}
+        required
         className="p-3 lg:p-5 w-full border border-gray-300 dark:border-gray-600 rounded-lg outline-gray-400 dark:outline-0 dark:placeholder:text-gray-500 dark:focus:bg-black/80 dark:text-white lg:text-lg"
       />
     </div>

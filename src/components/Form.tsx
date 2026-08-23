@@ -3,6 +3,7 @@
 import { ReactNode, useState } from "react";
 import FormField from "./FormField";
 import Image from "next/image";
+import { handleLoginAction } from "@/actions/login";
 
 export default function Form(): ReactNode {
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -56,8 +57,8 @@ export default function Form(): ReactNode {
         </h1>
 
         <form
-          method="POST"
           className="w-full flex flex-col justify-between items-start gap-5 lg:gap-8 mt-5 lg:mt-10"
+          action={handleLoginAction}
         >
           <FormField
             label="Username"
@@ -84,7 +85,7 @@ export default function Form(): ReactNode {
           </FormField>
 
           <div className="flex justify-start items-center gap-2 lg:gap-4">
-            <input type="checkbox" id="remember-me" />
+            <input type="checkbox" id="remember-me" name="remember-me" />
 
             <label htmlFor="remember-me" className="text-gray-500 lg:text-lg">
               Remember me

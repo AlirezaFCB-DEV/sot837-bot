@@ -52,7 +52,7 @@ export default function Form(): ReactNode {
           Get a new experience of <br /> imagination
         </h1>
 
-        <h1 className="hidden md:block text-2xl lg:text-3xl font-bold text-gray-600 dark:text-white/70">
+        <h1 className="hidden md:block text-2xl lg:text-3xl font-bold text-gray-500">
           Welcome back
         </h1>
 

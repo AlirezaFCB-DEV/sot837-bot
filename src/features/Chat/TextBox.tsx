@@ -1,5 +1,6 @@
 "use client";
 
+import IconButton from "@/components/IconButton";
 import { ArrowUp } from "lucide-react";
 import { ReactNode, useRef } from "react";
 
@@ -25,10 +26,9 @@ export default function TextBox(): ReactNode {
         className="p-3 w-full max-h-60 border border-gray-300 rounded-3xl outline-0 caret-blue-600 placeholder:text-[15px] pr-11 scrollbar-none resize-none"
       />
 
-      <ArrowUp
-        className="absolute bottom-3.75 right-2.5 p-1 rounded-full bg-green-500 text-white"
-        size={30}
-      />
+      <IconButton className="absolute bottom-3.75 right-2.5 p-1 rounded-full bg-green-500 text-white">
+        <ArrowUp size={24} />
+      </IconButton>
     </div>
   );
 }

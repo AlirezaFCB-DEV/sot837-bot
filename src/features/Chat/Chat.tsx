@@ -1,17 +1,18 @@
 import { ReactNode } from "react";
 import Header from "../Header/Header";
 import TextBox from "./TextBox";
+import Messages from "./Messages";
 
 export default function Chat(): ReactNode {
   return (
-    <section className="w-full h-full rounded-3xl border border-gray-400 bg-white">
+    <section className="w-full h-full rounded-3xl border border-gray-400 dark:border-gray-600 bg-white dark:bg-black/80 flex flex-col justify-between relative">
       <Header />
 
-      <main>
-        <h1>hello world!</h1>
+      <main className="w-full flex-1 overflow-auto scrollbar-none mb-2">
+        <Messages />
       </main>
 
-      <footer className="w-full flex flex-col justify-start items-center gap-3 p-3 border-t border-gray-300 text-center">
+      <footer className="w-full min-h-60 flex flex-col justify-start items-center gap-2 p-3 border-t border-gray-300 dark:border-gray-600 text-center">
         <TextBox />
 
         <h5 className="text-sm text-gray-400">

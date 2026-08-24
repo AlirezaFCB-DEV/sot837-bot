@@ -1,20 +1,21 @@
+import Logo from "@/components/Logo";
 import Image from "next/image";
 import { ReactNode } from "react";
 
 export default function Header(): ReactNode {
   return (
-    <header className="w-full p-5 border-b border-gray-300 shadow-md">
+    <header className="w-full p-5 border-b border-gray-300 dark:border-gray-600 shadow-md bg-white/80 dark:bg-black/80 backdrop-blur-lg absolute rounded-3xl">
       <div className="flex justify-start items-center gap-3">
         <Image
           src={"/logo.svg"}
           alt="account image"
           width={2000}
           height={2000}
-          className="w-15 p-1 bg-gray-300 rounded-full"
+          className="w-15 p-1 bg-gray-300 dark:bg-gray-600 rounded-full"
         />
 
         <div>
-          <h3 className="font-bold">sot837-bot</h3>
+          <Logo className="text-xl">-bot</Logo>
           <h4 className="text-gray-400 text-sm">Personal chat bot</h4>
         </div>
       </div>

@@ -4,6 +4,7 @@ import { ReactNode, useState } from "react";
 import FormField from "./FormField";
 import Image from "next/image";
 import { handleLoginAction } from "@/actions/login";
+import Logo from "./Logo";
 
 export default function Form(): ReactNode {
   const [showPassword, setShowPassword] = useState<boolean>(false);
@@ -24,9 +25,7 @@ export default function Form(): ReactNode {
             className="w-10 lg:w-12"
           />
 
-          <h3 className="bg-linear-to-l from-blue-700 to-black/80 dark:to-white bg-clip-text text-transparent text-2xl lg:text-3xl font-bold">
-            sot837
-          </h3>
+          <Logo className="text-2xl lg:text-3xl" />
         </div>
 
         <div className="flex flex-col justify-between items-start gap-5">

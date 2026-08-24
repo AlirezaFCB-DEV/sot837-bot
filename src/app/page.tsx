@@ -1,9 +1,10 @@
+import Chat from "@/features/Chat/Chat";
 import { ReactNode } from "react";
 
-export default function page(): ReactNode {
+export default function HomePage(): ReactNode {
   return (
-    <div>
-      <h1>hello world!</h1>
-    </div>
+    <main className="w-screen h-screen p-2 flex justify-center items-center">
+      <Chat />
+    </main>
   );
 }

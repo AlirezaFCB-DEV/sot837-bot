@@ -39,7 +39,7 @@ export default function TextBox(): ReactNode {
   ): Promise<BotMessage> => {
     const message = formData.get("message") as string;
 
-    setIsIptEmpty("")
+    setIsIptEmpty("");
 
     if (!message.trim()) return { typeError: "text box can not empty!" };
 

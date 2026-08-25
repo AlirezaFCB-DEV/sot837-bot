@@ -4,7 +4,7 @@ import { ReactNode } from "react";
 
 export default function Header(): ReactNode {
   return (
-    <header className="w-full p-5 border-b border-gray-300 dark:border-gray-600 shadow-md bg-white/80 dark:bg-black/80 backdrop-blur-lg absolute rounded-3xl">
+    <header className="w-full p-5 border-b border-gray-300 dark:border-gray-600 shadow-md bg-white dark:bg-black lg:rounded-b-none rounded-3xl absolute z-10">
       <div className="flex justify-start items-center gap-3">
         <Image
           src={"/logo.svg"}

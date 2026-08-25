@@ -8,13 +8,9 @@ export default function Messages(): ReactNode {
   const { messages } = use(MessageContext);
 
   return (
-    <ul className="w-full h-full flex flex-col justify-start items-center gap-7 p-5 mt-22">
+    <ul className="w-full h-full flex flex-col justify-start items-center gap-7 p-5 mt-25">
       {messages.map((message) => (
-        <MessageItem
-          message={message.message}
-          type={message.type}
-          key={message.id}
-        />
+        <MessageItem {...message} key={message.id} />
       ))}
     </ul>
   );

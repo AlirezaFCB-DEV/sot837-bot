@@ -8,23 +8,22 @@ export default function MessageProvider({
 }: {
   children: ReactNode;
 }): ReactNode {
-  const [messages, setMessages] = useState<MessageType[]>(() => {
-    if (typeof window !== "undefined") {
-      try {
-        const storage: string | null = localStorage.getItem("messages");
-
-        return storage ? JSON.parse(storage) : [];
-      } catch (error) {
-        console.error(error);
-
-        localStorage.removeItem("messages");
-      }
-    }
-    return [];
-  });
+  const [messages, setMessages] = useState<MessageType[]>([]);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    const handleStorage = () => {
+      const storage: string | null = localStorage.getItem("messages");
+
+      if (storage) {
+        setMessages(JSON.parse(storage));
+      }
+    };
+
+    handleStorage();
+  }, []);
+
+  useEffect(() => {
+    if (messages.length > 0) {
       localStorage.setItem("messages", JSON.stringify(messages));
     }
   }, [messages]);

@@ -12,7 +12,7 @@ export default function Chat(): ReactNode {
         <Messages />
       </main>
 
-      <footer className="w-full min-h-60 flex flex-col justify-start items-center gap-2 p-3 border-t border-gray-300 dark:border-gray-600 text-center">
+      <footer className="w-full flex flex-col justify-start items-center gap-2 p-3 border-t border-gray-300 dark:border-gray-600 text-center">
         <TextBox />
 
         <h5 className="text-sm text-gray-400">

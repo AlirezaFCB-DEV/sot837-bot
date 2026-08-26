@@ -1,11 +1,3 @@
 {
-  "history": [
-    {
-      "id": "1",
-      "date": "date",
-      "time": "",
-      "content": "hi",
-      "type": "user"
-    }
-  ]
+  "history": []
 }

@@ -10,32 +10,47 @@ export default function MessageProvider({
   children: ReactNode;
 }): ReactNode {
   const [messages, setMessages] = useState<MessageType[]>([]);
-
-  useEffect(() => {
-    if (messages.length === 0) return;
-
-    const handlesendData = async () => {
-      await FetchData<MessageType>("https://sot837-bot.onrender.com/history", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(messages[messages.length - 1]),
-      });
-    };
-
-    handlesendData();
-  }, [messages]);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     const handleGetData = async () => {
-      const res = await FetchData<MessageType[]>(
-        "https://sot837-bot.onrender.com/history",
-      );
+      try {
+        const res = await FetchData<MessageType[]>(
+          "https://sot837-bot.onrender.com/history",
+        );
 
-      setMessages(res);
+        setMessages(res);
+      } catch (error) {
+        console.error("Failed to get messages:", error);
+      } finally {
+        setIsLoaded(true);
+      }
     };
 
     handleGetData();
   }, []);
+
+  useEffect(() => {
+    if (!isLoaded) {
+      if (messages.length === 0) return;
+
+      const handleSendData = async () => {
+        try {
+          await FetchData("https://sot837-bot.onrender.com/history", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(messages[messages.length - 1]),
+          });
+        } catch (error) {
+          console.error("Failed to send messages:", error);
+        }
+      };
+
+      handleSendData();
+    }
+  }, [messages, isLoaded]);
 
   const handleAddMessage = (message: MessageType): void => {
     setMessages((old) => [...old, message]);

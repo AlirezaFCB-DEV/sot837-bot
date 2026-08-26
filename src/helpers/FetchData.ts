@@ -1,8 +1,12 @@
-"use server";
+export async function FetchData<T>(
+  url: string,
+  options?: RequestInit,
+): Promise<T> {
+  const res = await fetch(url, options);
 
-export async function FetchData<T>(url: string): Promise<T> {
-  const res = await fetch(url);
-  const data = res.json();
+  if (!res.ok) {
+    throw new Error(`Request failed from : ${url} \n status : ${res.status}`);
+  }
 
-  return data;
+  return res.json();
 }

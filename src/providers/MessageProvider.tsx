@@ -28,14 +28,8 @@ export default function MessageProvider({
     }
   }, [messages]);
 
-  const handleAddMessage = ({ message, type, id }: MessageType): void => {
-    setMessages((old) => {
-      const clone = [...old];
-
-      clone.push({ message, type, id });
-
-      return clone;
-    });
+  const handleAddMessage = (message: MessageType): void => {
+    setMessages((old) => [...old, message]);
   };
 
   return (

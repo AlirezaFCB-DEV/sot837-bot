@@ -5,9 +5,9 @@ import { MessageContext } from "@/contexts/MessageContext";
 import { ArrowUp } from "lucide-react";
 import {
   ChangeEvent,
+  FormEvent,
   ReactNode,
   use,
-  useActionState,
   useRef,
   useState,
 } from "react";
@@ -21,8 +21,9 @@ export type BotMessage = {
 
 export default function TextBox(): ReactNode {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const { handleAddMessage } = use(MessageContext);
   const [isIptEmpty, setIsIptEmpty] = useState<string>("");
+  const [data, setData] = useState<BotMessage | null>(null);
+  const { handleAddMessage } = use(MessageContext);
 
   const handleInput = (): void => {
     const textarea = textareaRef.current;
@@ -33,43 +34,62 @@ export default function TextBox(): ReactNode {
     textarea.style.height = `${textarea.scrollHeight}px`;
   };
 
-  const handleActionState = async (
-    _: unknown,
-    formData: FormData,
-  ): Promise<BotMessage> => {
-    const message = formData.get("message") as string;
+  const resetTextarea = (): void => {
+    const textarea = textareaRef.current;
 
+    if (!textarea) return;
+
+    textarea.value = "";
+    textarea.style.height = "auto";
     setIsIptEmpty("");
-
-    if (!message.trim()) return { typeError: "text box can not empty!" };
-
-    handleAddMessage({ message: message, type: "user", id: v4() });
-
-    const res = await fetch("/api/chat", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ message: message }),
-    });
-
-    const botRes: BotMessage = await res.json();
-
-    if (botRes.error) {
-      return {
-        error: "Im so sory may we got a server error please try again later.",
-      };
-    }
-
-    if (botRes.message) {
-      handleAddMessage({ message: botRes.message, type: "bot", id: v4() });
-    }
-
-    return botRes;
   };
 
-  const [data, action, isPending] = useActionState(handleActionState, null);
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
+    e.preventDefault();
+
+    const message = String(
+      new FormData(e.currentTarget).get("message") ?? "",
+    ).trim();
+
+    if (!message) {
+      setData({ typeError: "text box can not empty!" });
+      return;
+    }
+
+    handleAddMessage({ message, type: "user", id: v4() });
+    resetTextarea();
+    setData(null);
+
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message }),
+      });
+
+      const botRes: BotMessage = await res.json();
+
+      if (botRes.error) {
+        setData({
+          error: `Im so sory may we got a error : ${botRes.error}`,
+        });
+        return;
+      }
+
+      if (botRes.message) {
+        handleAddMessage({ message: botRes.message, type: "bot", id: v4() });
+      }
+
+      setData(botRes);
+    } catch {
+      setData({
+        error: "Im so sory may we got a server error please try again later.",
+      });
+    }
+  };
 
   return (
-    <form className="relative w-full" action={action}>
+    <form className="relative w-full" onSubmit={handleSubmit}>
       {data?.typeError && !isIptEmpty.trim() && (
         <p className="text-red-600 font-bold mb-3">{data.typeError}</p>
       )}
@@ -94,7 +114,6 @@ export default function TextBox(): ReactNode {
 
       <IconButton
         type="submit"
-        disabled={isPending}
         className="absolute bottom-3.75 right-2 p-1 rounded-full bg-green-600 text-white"
       >
         <ArrowUp size={23} />

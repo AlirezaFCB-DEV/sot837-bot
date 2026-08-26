@@ -1,6 +1,7 @@
 "use client";
 
 import { MessageContext, MessageType } from "@/contexts/MessageContext";
+import { FetchData } from "@/helpers/FetchData";
 import { ReactNode, useEffect, useState } from "react";
 
 export default function MessageProvider({
@@ -11,22 +12,30 @@ export default function MessageProvider({
   const [messages, setMessages] = useState<MessageType[]>([]);
 
   useEffect(() => {
-    const handleStorage = () => {
-      const storage: string | null = localStorage.getItem("messages");
+    if (messages.length === 0) return;
 
-      if (storage) {
-        setMessages(JSON.parse(storage));
-      }
+    const handlesendData = async () => {
+      await FetchData<MessageType>("https://sot837-bot.onrender.com/history", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(messages[messages.length - 1]),
+      });
     };
 
-    handleStorage();
-  }, []);
+    handlesendData();
+  }, [messages]);
 
   useEffect(() => {
-    if (messages.length > 0) {
-      localStorage.setItem("messages", JSON.stringify(messages));
-    }
-  }, [messages]);
+    const handleGetData = async () => {
+      const res = await FetchData<MessageType[]>(
+        "https://sot837-bot.onrender.com/history",
+      );
+
+      setMessages(res);
+    };
+
+    handleGetData();
+  }, []);
 
   const handleAddMessage = (message: MessageType): void => {
     setMessages((old) => [...old, message]);

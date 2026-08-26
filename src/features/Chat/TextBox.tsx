@@ -2,6 +2,7 @@
 
 import IconButton from "@/components/IconButton";
 import { MessageContext } from "@/contexts/MessageContext";
+import { getDate } from "@/data/date";
 import { ArrowUp } from "lucide-react";
 import {
   ChangeEvent,
@@ -24,6 +25,8 @@ export default function TextBox(): ReactNode {
   const [isIptEmpty, setIsIptEmpty] = useState<string>("");
   const [data, setData] = useState<BotMessage | null>(null);
   const { handleAddMessage } = use(MessageContext);
+
+  const { year, month, day, hours, minutes } = getDate();
 
   const handleInput = (): void => {
     const textarea = textareaRef.current;
@@ -56,7 +59,13 @@ export default function TextBox(): ReactNode {
       return;
     }
 
-    handleAddMessage({ message, type: "user", id: v4() });
+    handleAddMessage({
+      id: v4(),
+      date: `${year}/${month}/${day}`,
+      time: `${hours}:${minutes}`,
+      content: message,
+      type: "user",
+    });
     resetTextarea();
     setData(null);
 
@@ -77,7 +86,13 @@ export default function TextBox(): ReactNode {
       }
 
       if (botRes.message) {
-        handleAddMessage({ message: botRes.message, type: "bot", id: v4() });
+        handleAddMessage({
+          id: v4(),
+          date: `${year}/${month}/${day}`,
+          time: `${hours}:${minutes}`,
+          content: botRes.message,
+          type: "bot",
+        });
       }
 
       setData(botRes);

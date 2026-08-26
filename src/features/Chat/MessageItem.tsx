@@ -1,10 +1,12 @@
 import { MessageType } from "@/contexts/MessageContext";
 import { ReactNode } from "react";
 
+type Props = Pick<MessageType, "content" | "type">;
+
 export default function MessageItem({
-  message,
+  content: message,
   type,
-}: Omit<MessageType, "id">): ReactNode {
+}: Props): ReactNode {
   const isUser = type === "user";
 
   return (

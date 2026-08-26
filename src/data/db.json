@@ -2,9 +2,10 @@
   "history": [
     {
       "id": "1",
+      "date": "date",
+      "time": "",
       "content": "hi",
-      "data": "data",
-      "time": ""
+      "type": "user"
     }
   ]
 }

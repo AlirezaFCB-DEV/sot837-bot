@@ -7,8 +7,10 @@ import { ArrowUp } from "lucide-react";
 import {
   ChangeEvent,
   FormEvent,
+  KeyboardEvent,
   ReactNode,
   use,
+  useEffect,
   useRef,
   useState,
 } from "react";
@@ -26,6 +28,8 @@ export default function TextBox(): ReactNode {
   const [data, setData] = useState<BotMessage | null>(null);
   const { handleAddMessage } = use(MessageContext);
 
+  const formRef = useRef<HTMLFormElement>(null);
+
   const { year, month, day, hours, minutes } = getDate();
 
   const handleInput = (): void => {
@@ -35,6 +39,14 @@ export default function TextBox(): ReactNode {
 
     textarea.style.height = "auto";
     textarea.style.height = `${textarea.scrollHeight}px`;
+  };
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter" && !e.shiftKey) {
+      e.preventDefault();
+
+      formRef.current?.requestSubmit();
+    }
   };
 
   const resetTextarea = (): void => {
@@ -50,9 +62,8 @@ export default function TextBox(): ReactNode {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
 
-    const message = String(
-      new FormData(e.currentTarget).get("message") ?? "",
-    ).trim();
+    const formData = new FormData(e.currentTarget);
+    const message = formData.get("message") as string;
 
     if (!message) {
       setData({ typeError: "text box can not empty!" });
@@ -96,15 +107,15 @@ export default function TextBox(): ReactNode {
       }
 
       setData(botRes);
-    } catch {
+    } catch (error) {
       setData({
-        error: "Im so sory may we got a server error please try again later.",
+        error: `Im so sory may we got a server error please try again later \n error:${error}`,
       });
     }
   };
 
   return (
-    <form className="relative w-full" onSubmit={handleSubmit}>
+    <form className="relative w-full" onSubmit={handleSubmit} ref={formRef}>
       {data?.typeError && !isIptEmpty.trim() && (
         <p className="text-red-600 font-bold mb-3">{data.typeError}</p>
       )}
@@ -118,6 +129,7 @@ export default function TextBox(): ReactNode {
       <textarea
         ref={textareaRef}
         onInput={handleInput}
+        onKeyDown={handleKeyDown}
         rows={1}
         onChange={(e: ChangeEvent<HTMLTextAreaElement>) =>
           setIsIptEmpty(e.target.value)

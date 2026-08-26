@@ -13,20 +13,6 @@
       "time": "01:34",
       "content": "Hello! How can I help you today?",
       "type": "bot"
-    },
-    {
-      "id": "9Vr9ZvzDssQ",
-      "date": "2026/8/27",
-      "time": "01:36",
-      "content": "what is you bugraphy",
-      "type": "user"
-    },
-    {
-      "id": "AJl8srrnbNo",
-      "date": "2026/8/27",
-      "time": "01:36",
-      "content": "User Safety: safe",
-      "type": "bot"
     }
   ],
   "$schema": "./node_modules/json-server/schema.json"
